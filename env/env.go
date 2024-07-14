@@ -1,57 +1,44 @@
 package env
 
 import (
-	"github.com/spf13/viper"
+	"fmt"
+	"github.com/joho/godotenv"
+	"os"
 )
 
+type DatabaseConfig struct {
+	Host     string
+	Port     string
+	Username string
+	Password string
+	DbName   string
+	SslMode  string
+}
+
 type Config struct {
-	HttpPort        string
-	AgentService    *AgentServiceConfig
-	SettingsService *SettingsServiceConfig
-	VisitorService  *VisitorServiceConfig
-}
-
-type AgentServiceConfig struct {
-	Host string
-	Port string
-}
-
-type SettingsServiceConfig struct {
-	Host string
-	Port string
-}
-
-type VisitorServiceConfig struct {
-	Host string
-	Port string
+	HttpPort string
+	Database *DatabaseConfig
 }
 
 var Conf *Config
 
 func init() {
-	viper.AutomaticEnv()
-	viper.SetEnvPrefix("APP")
 
-	viper.BindEnv("HTTP_PORT")
-	viper.BindEnv("AGENTS_SERVICE_HOST")
-	viper.BindEnv("AGENTS_SERVICE_PORT")
-
-	viper.BindEnv("SETTINGS_SERVICE_HOST")
-	viper.BindEnv("SETTINGS_SERVICE_PORT")
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Error loading environment variables:", err)
+		return
+	}
 
 	Conf = &Config{
-		HttpPort: viper.GetString("HTTP_PORT"),
-		AgentService: &AgentServiceConfig{
-			Host: viper.GetString("AGENTS_SERVICE_HOST"),
-			Port: viper.GetString("AGENTS_SERVICE_PORT"),
-		},
-		SettingsService: &SettingsServiceConfig{
-			Host: viper.GetString("SETTINGS_SERVICE_HOST"),
-			Port: viper.GetString("SETTINGS_SERVICE_PORT"),
-		},
-		VisitorService: &VisitorServiceConfig{
-			Host: viper.GetString("VISITOR_SERVICE_HOST"),
-			Port: viper.GetString("VISITOR_SERVICE_PORT"),
+		HttpPort: os.Getenv("HTTP_PORT"),
+		Database: &DatabaseConfig{
+			os.Getenv("POSTGRES_HOST"),
+			os.Getenv("POSTGRES_PORT"),
+			os.Getenv("POSTGRES_USERNAME"),
+			os.Getenv("POSTGRES_PASSWORD"),
+			os.Getenv("POSTGRES_DBNAME"),
+			os.Getenv("POSTGRES_SSL_MODE"),
 		},
 	}
 }
