@@ -1,24 +1,24 @@
-package main
+package api
 
 import (
-	"log"
-	"net/http"
-	"os"
-
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/ch3yb/clinic/api/service"
+	"github.com/ch3yb/clinic/env"
 	"github.com/ch3yb/clinic/graph"
+	"github.com/ch3yb/clinic/graph/resolvers"
+	"log"
+	"net/http"
 )
 
-const defaultPort = "8080"
+func Start() {
+	port := env.Conf.HttpPort
 
-func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = defaultPort
-	}
+	s := service.New()
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &resolvers.Resolver{
+		Service: s,
+	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

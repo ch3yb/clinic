@@ -6,21 +6,17 @@ import (
 	"os"
 )
 
-type DatabaseConfig struct {
-	Host     string
-	Port     string
-	Username string
-	Password string
-	DbName   string
-	SslMode  string
+type databaseConfig struct {
+	URL  string
+	FILE string
 }
 
-type Config struct {
+type config struct {
 	HttpPort string
-	Database *DatabaseConfig
+	Database *databaseConfig
 }
 
-var Conf *Config
+var Conf *config
 
 func init() {
 
@@ -30,15 +26,11 @@ func init() {
 		return
 	}
 
-	Conf = &Config{
+	Conf = &config{
 		HttpPort: os.Getenv("HTTP_PORT"),
-		Database: &DatabaseConfig{
-			os.Getenv("POSTGRES_HOST"),
-			os.Getenv("POSTGRES_PORT"),
-			os.Getenv("POSTGRES_USERNAME"),
-			os.Getenv("POSTGRES_PASSWORD"),
-			os.Getenv("POSTGRES_DBNAME"),
-			os.Getenv("POSTGRES_SSL_MODE"),
+		Database: &databaseConfig{
+			os.Getenv("DATABASE_URL"),
+			os.Getenv("DATABASE_MIGRATION_FILE"),
 		},
 	}
 }

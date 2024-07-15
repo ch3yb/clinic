@@ -1,11 +1,31 @@
-package transform
+package service
 
 import (
+	"database/sql"
+	db "github.com/ch3yb/clinic/api/database"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"log"
 	"os"
 )
 
+type Service struct {
+	db     *sql.DB
+	Logger *zap.Logger
+}
+
+func New() *Service {
+	database, err := db.StartDatabase()
+	if err != nil {
+		log.Println("err when start  Database on service.go : ", err)
+		return nil
+	}
+
+	return &Service{
+		db:     database,
+		Logger: loggerInit(),
+	}
+}
 func loggerInit() *zap.Logger {
 	encoderConfig := zap.NewDevelopmentEncoderConfig()
 	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
@@ -20,10 +40,4 @@ func loggerInit() *zap.Logger {
 
 	logger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(0))
 	return logger
-}
-func ErrApi(err error) error {
-	var l = loggerInit()
-	l.Error(err.Error())
-	defer l.Sync()
-	return err
 }

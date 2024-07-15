@@ -6,6 +6,8 @@ import (
 )
 
 func (r *queryResolver) Todos(ctx context.Context) ([]*models.Todo, error) {
+
+	r.Service.TestFn()
 	var todos = make([]*models.Todo, 0)
 	todos = append(todos, &models.Todo{
 		ID:   "tes",

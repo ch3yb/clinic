@@ -1,12 +1,14 @@
 package resolvers
 
 import (
+	"github.com/ch3yb/clinic/api/service"
 	"github.com/ch3yb/clinic/graph"
 	"sync"
 )
 
 type Resolver struct {
-	mu sync.Mutex
+	Service *service.Service
+	mu      sync.Mutex
 }
 
 // Mutation returns graph.MutationResolver implementation.

@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/ch3yb/clinic/service"
-)
+import "github.com/ch3yb/clinic/api"
 
 func main() {
-	service.Start()
+	api.Start()
 }
