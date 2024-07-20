@@ -20,23 +20,23 @@ type User {
 
 type Patient {
     patientID: Int!
-    notes: String!
-    bloodType: String!
-    emergencyContactName: String!
-    emergencyContactPhone: String!
-    insuranceProvider: String!
-    insurancePolicyNumber: String!
+    notes: String
+    bloodType: String
+    emergencyContactName: String
+    emergencyContactPhone: String
+    insuranceProvider: String
+    insurancePolicyNumber: String
     createdAt: Int!
     updatedAt: Int!
     firstName: String!
     lastName: String!
-    email: String!
+    email: String
     phoneNumber: String!
-    address: String!
+    address: String
     dateOfBirth: Int!
     gender: String!
     status: String!
-    profilePicture: String!
+    profilePicture: String
 }
 
 type Prescription {

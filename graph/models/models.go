@@ -15,24 +15,24 @@ type Mutation struct {
 }
 
 type Patient struct {
-	PatientID             int    `json:"patientID"`
-	Notes                 string `json:"notes"`
-	BloodType             string `json:"bloodType"`
-	EmergencyContactName  string `json:"emergencyContactName"`
-	EmergencyContactPhone string `json:"emergencyContactPhone"`
-	InsuranceProvider     string `json:"insuranceProvider"`
-	InsurancePolicyNumber string `json:"insurancePolicyNumber"`
-	CreatedAt             int    `json:"createdAt"`
-	UpdatedAt             int    `json:"updatedAt"`
-	FirstName             string `json:"firstName"`
-	LastName              string `json:"lastName"`
-	Email                 string `json:"email"`
-	PhoneNumber           string `json:"phoneNumber"`
-	Address               string `json:"address"`
-	DateOfBirth           int    `json:"dateOfBirth"`
-	Gender                string `json:"gender"`
-	Status                string `json:"status"`
-	ProfilePicture        string `json:"profilePicture"`
+	PatientID             int     `json:"patientID"`
+	Notes                 *string `json:"notes,omitempty"`
+	BloodType             *string `json:"bloodType,omitempty"`
+	EmergencyContactName  *string `json:"emergencyContactName,omitempty"`
+	EmergencyContactPhone *string `json:"emergencyContactPhone,omitempty"`
+	InsuranceProvider     *string `json:"insuranceProvider,omitempty"`
+	InsurancePolicyNumber *string `json:"insurancePolicyNumber,omitempty"`
+	CreatedAt             int     `json:"createdAt"`
+	UpdatedAt             int     `json:"updatedAt"`
+	FirstName             string  `json:"firstName"`
+	LastName              string  `json:"lastName"`
+	Email                 *string `json:"email,omitempty"`
+	PhoneNumber           string  `json:"phoneNumber"`
+	Address               *string `json:"address,omitempty"`
+	DateOfBirth           int     `json:"dateOfBirth"`
+	Gender                string  `json:"gender"`
+	Status                string  `json:"status"`
+	ProfilePicture        *string `json:"profilePicture,omitempty"`
 }
 
 type PatientDisease struct {

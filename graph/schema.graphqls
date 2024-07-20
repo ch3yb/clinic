@@ -6,4 +6,6 @@ type Query {
 
 type Mutation {
   createPatient(patientInput: PatientInput!):Boolean!
+  updatePatient(patientID:Int!, patientInput: PatientInput!):Boolean!
+  deletePatient(patientID: Int!): Boolean!
 }
