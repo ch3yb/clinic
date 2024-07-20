@@ -1,0 +1,80 @@
+type User {
+    userID: Int!
+    username: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    phoneNumber: String
+    role: String!
+    address: String
+    dateOfBirth: Int
+    gender: String
+    dateJoined: Int!
+    lastLogin: Int
+    status: String!
+    profilePicture: String
+    createdAt: Int!
+    updatedAt: Int!
+}
+
+type Patient {
+    patientID: Int!
+    notes: String!
+    bloodType: String!
+    emergencyContactName: String!
+    emergencyContactPhone: String!
+    insuranceProvider: String!
+    insurancePolicyNumber: String!
+    createdAt: Int!
+    updatedAt: Int!
+    firstName: String!
+    lastName: String!
+    email: String!
+    phoneNumber: String!
+    address: String!
+    dateOfBirth: Int!
+    gender: String!
+    status: String!
+    profilePicture: String!
+}
+
+type Prescription {
+    prescriptionID: Int!
+    medications: String
+    visitID: Int!
+    createdAt: Int!
+    instructions: String
+}
+
+type PrescriptionItem {
+    id: Int!
+    medicationName: String!
+    dosage: String!
+    frequency: String!
+    duration: Int
+    refills: Int
+}
+
+type Visit {
+    visitID: Int!
+    patientID: Int!
+    prescriptionID: Int
+    details: String
+    symptoms: String
+    diagnosis: String
+    prescription: String
+    doctorInquiry: String
+    notes: String
+    visitDate: Int!
+}
+
+type Disease {
+    diseaseID: Int!
+    diseaseName: String!
+}
+
+type PatientDisease {
+    patientID: Int!
+    diseaseID: Int!
+}

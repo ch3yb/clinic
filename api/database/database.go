@@ -18,7 +18,6 @@ func StartDatabase() (*sql.DB, error) {
 		log.Println("err when Open Database: ", err)
 		return nil, err
 	}
-	defer db.Close()
 
 	err = db.Ping()
 	if err != nil {

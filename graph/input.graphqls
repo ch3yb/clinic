@@ -1,0 +1,68 @@
+input UserInput {
+    username: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+    phoneNumber: String
+    role: String!
+    address: String
+    dateOfBirth: Int
+    gender: String
+    dateJoined: Int!
+    lastLogin: Int
+    status: String!
+    profilePicture: String
+}
+
+input PatientInput {
+    notes: String
+    bloodType: String!
+    emergencyContactName: String
+    emergencyContactPhone: String
+    insuranceProvider: String
+    insurancePolicyNumber: String
+    firstName: String!
+    lastName: String!
+    email: String
+    phoneNumber: String!
+    address: String
+    dateOfBirth: Int!
+    gender: String!
+    profilePicture: String
+}
+
+input PrescriptionInput {
+    medications: String
+    visitID: Int!
+    instructions: String
+}
+
+input PrescriptionItemInput {
+    medicationName: String!
+    dosage: String!
+    frequency: String!
+    duration: Int
+    refills: Int
+}
+
+input VisitInput {
+    patientID: Int!
+    prescriptionID: Int
+    details: String
+    symptoms: String
+    diagnosis: String
+    prescription: String
+    doctorInquiry: String
+    notes: String
+    visitDate: Int!
+}
+
+input DiseaseInput {
+    diseaseName: String!
+}
+
+input PatientDiseaseInput {
+    patientID: Int!
+    diseaseID: Int!
+}
