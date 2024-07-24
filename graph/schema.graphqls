@@ -1,6 +1,7 @@
 
 type Query {
-  getPatient(patientID: Int!): Patient!
+  patients(archived: Boolean): [Patient!]!
+  patient(patientID: Int!): Patient!
 }
 
 
@@ -8,4 +9,5 @@ type Mutation {
   createPatient(patientInput: PatientInput!):Boolean!
   updatePatient(patientID:Int!, patientInput: PatientInput!):Boolean!
   deletePatient(patientID: Int!): Boolean!
+  restorePatient(patientID: Int!): Boolean!
 }

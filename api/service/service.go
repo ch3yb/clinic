@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	db "github.com/ch3yb/clinic/api/database"
+	"github.com/ch3yb/clinic/api/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"log"
@@ -12,6 +13,7 @@ import (
 type Service struct {
 	db     *sql.DB
 	Logger *zap.Logger
+	Err    *errors.Err
 }
 
 func New() *Service {
@@ -24,6 +26,9 @@ func New() *Service {
 	return &Service{
 		db:     database,
 		Logger: loggerInit(),
+		Err: &errors.Err{
+			Lang: "fr", //get it auto
+		},
 	}
 }
 func loggerInit() *zap.Logger {

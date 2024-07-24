@@ -2,21 +2,11 @@ package resolvers
 
 import (
 	"context"
-	"github.com/ch3yb/clinic/errors"
 	"github.com/ch3yb/clinic/graph/models"
 )
 
-func (r *queryResolver) GetPatient(ctx context.Context, patientID int) (*models.Patient, error) {
-
-	patient, err := r.Service.GetPatient(uint(patientID))
-	if err != nil {
-		return nil, errors.ErrInternal
-	}
-	return patient, nil
-}
-
 func (r *mutationResolver) CreatePatient(ctx context.Context, in models.PatientInput) (bool, error) {
-	err := r.Service.InsertPatient(&in)
+	err := r.Service.CreatePatient(&in)
 	if err != nil {
 		return false, err
 	}
@@ -39,5 +29,12 @@ func (r *mutationResolver) DeletePatient(ctx context.Context, patientID int) (bo
 		return false, err
 	}
 	return true, nil
+}
 
+func (r *mutationResolver) RestorePatient(ctx context.Context, patientID int) (bool, error) {
+	err := r.Service.RestorePatient(patientID)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
 }
