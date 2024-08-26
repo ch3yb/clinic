@@ -11,6 +11,51 @@ type DiseaseInput struct {
 	DiseaseName string `json:"diseaseName"`
 }
 
+type Medicament struct {
+	ID                                                   string `json:"id"`
+	Numero                                               string `json:"numero"`
+	NumeroEnregistrement                                 string `json:"numeroEnregistrement"`
+	Code                                                 string `json:"code"`
+	DenominationCommuneInternationale                    string `json:"denominationCommuneInternationale"`
+	NomDeMarque                                          string `json:"nomDeMarque"`
+	Forme                                                string `json:"forme"`
+	Dosage                                               string `json:"dosage"`
+	Cond                                                 string `json:"cond"`
+	Liste                                                string `json:"liste"`
+	P1                                                   string `json:"p1"`
+	P2                                                   string `json:"p2"`
+	Obs                                                  string `json:"obs"`
+	LaboratoiresDetenteurDeLaDecisionEnregistrement      string `json:"laboratoiresDetenteurDeLaDecisionEnregistrement"`
+	PaysDuLaboratoireDetenteurDeLaDecisionEnregistrement string `json:"paysDuLaboratoireDetenteurDeLaDecisionEnregistrement"`
+	DateEnregistrementInitial                            string `json:"dateEnregistrementInitial"`
+	DateEnregistrementFinal                              string `json:"dateEnregistrementFinal"`
+	Type                                                 string `json:"type"`
+	Statut                                               string `json:"statut"`
+	DureeDeStabilite                                     string `json:"dureeDeStabilite"`
+}
+
+type MedicamentInput struct {
+	Numero                                               *string `json:"numero,omitempty"`
+	NumeroEnregistrement                                 *string `json:"numeroEnregistrement,omitempty"`
+	Code                                                 *string `json:"code,omitempty"`
+	DenominationCommuneInternationale                    *string `json:"denominationCommuneInternationale,omitempty"`
+	NomDeMarque                                          *string `json:"nomDeMarque,omitempty"`
+	Forme                                                *string `json:"forme,omitempty"`
+	Dosage                                               *string `json:"dosage,omitempty"`
+	Cond                                                 *string `json:"cond,omitempty"`
+	Liste                                                *string `json:"liste,omitempty"`
+	P1                                                   *string `json:"p1,omitempty"`
+	P2                                                   *string `json:"p2,omitempty"`
+	Obs                                                  *string `json:"obs,omitempty"`
+	LaboratoiresDetenteurDeLaDecisionEnregistrement      *string `json:"laboratoiresDetenteurDeLaDecisionEnregistrement,omitempty"`
+	PaysDuLaboratoireDetenteurDeLaDecisionEnregistrement *string `json:"paysDuLaboratoireDetenteurDeLaDecisionEnregistrement,omitempty"`
+	DateEnregistrementInitial                            *string `json:"dateEnregistrementInitial,omitempty"`
+	DateEnregistrementFinal                              *string `json:"dateEnregistrementFinal,omitempty"`
+	Type                                                 *string `json:"type,omitempty"`
+	Statut                                               *string `json:"statut,omitempty"`
+	DureeDeStabilite                                     *string `json:"dureeDeStabilite,omitempty"`
+}
+
 type Mutation struct {
 }
 
@@ -63,17 +108,17 @@ type PatientInput struct {
 }
 
 type Prescription struct {
-	PrescriptionID int     `json:"prescriptionID"`
-	Medications    *string `json:"medications,omitempty"`
-	VisitID        int     `json:"visitID"`
-	CreatedAt      int     `json:"createdAt"`
-	Instructions   *string `json:"instructions,omitempty"`
+	PrescriptionID int                 `json:"prescriptionID"`
+	VisitID        int                 `json:"visitID"`
+	CreatedAt      int                 `json:"createdAt"`
+	Items          []*PrescriptionItem `json:"items"`
+	Instructions   *string             `json:"instructions,omitempty"`
 }
 
 type PrescriptionInput struct {
-	Medications  *string `json:"medications,omitempty"`
-	VisitID      int     `json:"visitID"`
-	Instructions *string `json:"instructions,omitempty"`
+	VisitID      int                      `json:"visitID"`
+	Instructions *string                  `json:"instructions,omitempty"`
+	Items        []*PrescriptionItemInput `json:"items"`
 }
 
 type PrescriptionItem struct {
@@ -82,15 +127,12 @@ type PrescriptionItem struct {
 	Dosage         string `json:"dosage"`
 	Frequency      string `json:"frequency"`
 	Duration       *int   `json:"duration,omitempty"`
-	Refills        *int   `json:"refills,omitempty"`
 }
 
 type PrescriptionItemInput struct {
-	MedicationName string `json:"medicationName"`
-	Dosage         string `json:"dosage"`
-	Frequency      string `json:"frequency"`
-	Duration       *int   `json:"duration,omitempty"`
-	Refills        *int   `json:"refills,omitempty"`
+	ID        int    `json:"id"`
+	Frequency string `json:"frequency"`
+	Duration  int    `json:"duration"`
 }
 
 type Query struct {
@@ -134,26 +176,21 @@ type UserInput struct {
 }
 
 type Visit struct {
-	VisitID        int     `json:"visitID"`
-	PatientID      int     `json:"patientID"`
-	PrescriptionID *int    `json:"prescriptionID,omitempty"`
-	Details        *string `json:"details,omitempty"`
-	Symptoms       *string `json:"symptoms,omitempty"`
-	Diagnosis      *string `json:"diagnosis,omitempty"`
-	Prescription   *string `json:"prescription,omitempty"`
-	DoctorInquiry  *string `json:"doctorInquiry,omitempty"`
-	Notes          *string `json:"notes,omitempty"`
-	VisitDate      int     `json:"visitDate"`
+	VisitID           int           `json:"visitID"`
+	PatientID         int           `json:"patientID"`
+	PrescriptionID    *int          `json:"prescriptionID,omitempty"`
+	Details           *string       `json:"details,omitempty"`
+	Diagnosis         *string       `json:"diagnosis,omitempty"`
+	Notes             *string       `json:"notes,omitempty"`
+	VisitDate         int           `json:"visitDate"`
+	VisitPrescription *Prescription `json:"visit_prescription,omitempty"`
 }
 
 type VisitInput struct {
 	PatientID      int     `json:"patientID"`
 	PrescriptionID *int    `json:"prescriptionID,omitempty"`
 	Details        *string `json:"details,omitempty"`
-	Symptoms       *string `json:"symptoms,omitempty"`
 	Diagnosis      *string `json:"diagnosis,omitempty"`
-	Prescription   *string `json:"prescription,omitempty"`
-	DoctorInquiry  *string `json:"doctorInquiry,omitempty"`
 	Notes          *string `json:"notes,omitempty"`
 	VisitDate      int     `json:"visitDate"`
 }

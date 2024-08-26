@@ -41,9 +41,9 @@ type Patient {
 
 type Prescription {
     prescriptionID: Int!
-    medications: String
     visitID: Int!
     createdAt: Int!
+    items: [PrescriptionItem!]!
     instructions: String
 }
 
@@ -53,7 +53,6 @@ type PrescriptionItem {
     dosage: String!
     frequency: String!
     duration: Int
-    refills: Int
 }
 
 type Visit {
@@ -61,12 +60,10 @@ type Visit {
     patientID: Int!
     prescriptionID: Int
     details: String
-    symptoms: String
     diagnosis: String
-    prescription: String
-    doctorInquiry: String
     notes: String
     visitDate: Int!
+    visit_prescription: Prescription
 }
 
 type Disease {
@@ -77,4 +74,27 @@ type Disease {
 type PatientDisease {
     patientID: Int!
     diseaseID: Int!
+}
+
+type Medicament {
+    id: ID!
+    numero: String!
+    numeroEnregistrement: String!
+    code: String!
+    denominationCommuneInternationale: String!
+    nomDeMarque: String!
+    forme: String!
+    dosage: String!
+    cond: String!
+    liste: String!
+    p1: String!
+    p2: String!
+    obs: String!
+    laboratoiresDetenteurDeLaDecisionEnregistrement: String!
+    paysDuLaboratoireDetenteurDeLaDecisionEnregistrement: String!
+    dateEnregistrementInitial: String!
+    dateEnregistrementFinal: String!
+    type: String!
+    statut: String!
+    dureeDeStabilite: String!
 }
