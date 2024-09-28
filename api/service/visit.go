@@ -62,7 +62,7 @@ patient_id, prescription_id, details, diagnosis, notes, visit_date FROM visits W
 func (s *Service) GetVisits(patientID uint) ([]*models.Visit, error) {
 	var visits = make([]*models.Visit, 0)
 
-	rows, err := s.db.Query(`SELECT
+	rows, err := s.db.Query(`SELECT visit_id,
 	patient_id, prescription_id, details, diagnosis, notes, visit_date FROM visits WHERE patient_id = $1`, patientID)
 	if err != nil {
 		s.Logger.Error(err.Error())
@@ -73,6 +73,7 @@ func (s *Service) GetVisits(patientID uint) ([]*models.Visit, error) {
 		var visit = new(models.Visit)
 		var prescriptionID sql.NullInt32
 		rows.Scan(
+			&visit.VisitID,
 			&visit.PatientID,
 			&prescriptionID,
 			&visit.Details,
@@ -82,7 +83,11 @@ func (s *Service) GetVisits(patientID uint) ([]*models.Visit, error) {
 		)
 
 		if prescriptionID.Valid {
-			visit.VisitPrescription = nil
+			visit.VisitPrescription, err = s.GetPrescription(uint32(visit.VisitID))
+			if err != nil {
+				s.Logger.Error(err.Error())
+				return nil, err
+			}
 		}
 
 		if err != nil {

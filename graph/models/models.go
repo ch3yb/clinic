@@ -178,7 +178,6 @@ type UserInput struct {
 type Visit struct {
 	VisitID           int           `json:"visitID"`
 	PatientID         int           `json:"patientID"`
-	PrescriptionID    *int          `json:"prescriptionID,omitempty"`
 	Details           *string       `json:"details,omitempty"`
 	Diagnosis         *string       `json:"diagnosis,omitempty"`
 	Notes             *string       `json:"notes,omitempty"`
@@ -187,10 +186,8 @@ type Visit struct {
 }
 
 type VisitInput struct {
-	PatientID      int     `json:"patientID"`
-	PrescriptionID *int    `json:"prescriptionID,omitempty"`
-	Details        *string `json:"details,omitempty"`
-	Diagnosis      *string `json:"diagnosis,omitempty"`
-	Notes          *string `json:"notes,omitempty"`
-	VisitDate      int     `json:"visitDate"`
+	PatientID int     `json:"patientID"`
+	Details   *string `json:"details,omitempty"`
+	Diagnosis *string `json:"diagnosis,omitempty"`
+	Notes     *string `json:"notes,omitempty"`
 }

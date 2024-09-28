@@ -160,7 +160,6 @@ type ComplexityRoot struct {
 		Diagnosis         func(childComplexity int) int
 		Notes             func(childComplexity int) int
 		PatientID         func(childComplexity int) int
-		PrescriptionID    func(childComplexity int) int
 		VisitDate         func(childComplexity int) int
 		VisitID           func(childComplexity int) int
 		VisitPrescription func(childComplexity int) int
@@ -842,13 +841,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Visit.PatientID(childComplexity), true
-
-	case "Visit.prescriptionID":
-		if e.complexity.Visit.PrescriptionID == nil {
-			break
-		}
-
-		return e.complexity.Visit.PrescriptionID(childComplexity), true
 
 	case "Visit.visitDate":
 		if e.complexity.Visit.VisitDate == nil {
@@ -4068,8 +4060,6 @@ func (ec *executionContext) fieldContext_Query_visits(ctx context.Context, field
 				return ec.fieldContext_Visit_visitID(ctx, field)
 			case "patientID":
 				return ec.fieldContext_Visit_patientID(ctx, field)
-			case "prescriptionID":
-				return ec.fieldContext_Visit_prescriptionID(ctx, field)
 			case "details":
 				return ec.fieldContext_Visit_details(ctx, field)
 			case "diagnosis":
@@ -4141,8 +4131,6 @@ func (ec *executionContext) fieldContext_Query_visit(ctx context.Context, field 
 				return ec.fieldContext_Visit_visitID(ctx, field)
 			case "patientID":
 				return ec.fieldContext_Visit_patientID(ctx, field)
-			case "prescriptionID":
-				return ec.fieldContext_Visit_prescriptionID(ctx, field)
 			case "details":
 				return ec.fieldContext_Visit_details(ctx, field)
 			case "diagnosis":
@@ -5154,47 +5142,6 @@ func (ec *executionContext) _Visit_patientID(ctx context.Context, field graphql.
 }
 
 func (ec *executionContext) fieldContext_Visit_patientID(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
-	fc = &graphql.FieldContext{
-		Object:     "Visit",
-		Field:      field,
-		IsMethod:   false,
-		IsResolver: false,
-		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type Int does not have child fields")
-		},
-	}
-	return fc, nil
-}
-
-func (ec *executionContext) _Visit_prescriptionID(ctx context.Context, field graphql.CollectedField, obj *models.Visit) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Visit_prescriptionID(ctx, field)
-	if err != nil {
-		return graphql.Null
-	}
-	ctx = graphql.WithFieldContext(ctx, fc)
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.PrescriptionID, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		return graphql.Null
-	}
-	res := resTmp.(*int)
-	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
-}
-
-func (ec *executionContext) fieldContext_Visit_prescriptionID(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Visit",
 		Field:      field,
@@ -7780,7 +7727,7 @@ func (ec *executionContext) unmarshalInputVisitInput(ctx context.Context, obj in
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"patientID", "prescriptionID", "details", "diagnosis", "notes", "visitDate"}
+	fieldsInOrder := [...]string{"patientID", "details", "diagnosis", "notes"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
@@ -7794,13 +7741,6 @@ func (ec *executionContext) unmarshalInputVisitInput(ctx context.Context, obj in
 				return it, err
 			}
 			it.PatientID = data
-		case "prescriptionID":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("prescriptionID"))
-			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
-			if err != nil {
-				return it, err
-			}
-			it.PrescriptionID = data
 		case "details":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("details"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
@@ -7822,13 +7762,6 @@ func (ec *executionContext) unmarshalInputVisitInput(ctx context.Context, obj in
 				return it, err
 			}
 			it.Notes = data
-		case "visitDate":
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("visitDate"))
-			data, err := ec.unmarshalNInt2int(ctx, v)
-			if err != nil {
-				return it, err
-			}
-			it.VisitDate = data
 		}
 	}
 
@@ -8640,8 +8573,6 @@ func (ec *executionContext) _Visit(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				out.Invalids++
 			}
-		case "prescriptionID":
-			out.Values[i] = ec._Visit_prescriptionID(ctx, field, obj)
 		case "details":
 			out.Values[i] = ec._Visit_details(ctx, field, obj)
 		case "diagnosis":

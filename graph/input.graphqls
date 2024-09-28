@@ -45,11 +45,9 @@ input PrescriptionItemInput {
 
 input VisitInput {
     patientID: Int!
-    prescriptionID: Int
     details: String
     diagnosis: String
     notes: String
-    visitDate: Int!
 }
 
 input DiseaseInput {

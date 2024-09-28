@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	"github.com/ch3yb/clinic/graph/models"
+	"log"
 	"time"
 )
 
@@ -22,6 +23,20 @@ func (s *Service) CreatePrescription(in *models.PrescriptionInput) error {
 		s.Logger.Error(err.Error())
 		return s.Err.ErrInternal()
 	}
+
+	log.Println(in.VisitID, prescriptionID)
+	rs, err := s.db.Exec(`update visits set prescription_id = $2 where visit_id = $1`, in.VisitID, prescriptionID)
+	if err != nil {
+		s.Logger.Error(err.Error())
+		return s.Err.ErrInternal()
+	}
+	rows, err := rs.RowsAffected()
+	if err != nil {
+		s.Logger.Error(err.Error())
+		return s.Err.ErrInternal()
+	}
+
+	log.Printf(" %v ", rows)
 	return nil
 }
 
@@ -52,7 +67,7 @@ func (s *Service) setItems(prescriptionID int32, items []*models.PrescriptionIte
 	for _, item := range items {
 
 		var med = new(models.Medicament)
-		err := s.db.QueryRow(`SELECT id, code, denomination_commune_internationale, nom_de_marque, dosage FROM medicament WHERE id = $1`, item.ID).Scan(
+		err := s.db.QueryRow(`SELECT code, denomination_commune_internationale, nom_de_marque, dosage FROM medicament WHERE id = $1`, item.ID).Scan(
 			&med.Code,
 			&med.DenominationCommuneInternationale,
 			&med.NomDeMarque,
@@ -60,6 +75,7 @@ func (s *Service) setItems(prescriptionID int32, items []*models.PrescriptionIte
 		)
 		if err != nil {
 			s.Logger.Error(err.Error())
+			return s.Err.ErrInternal()
 		}
 
 		_, err = s.db.Exec(`insert into prescription_items (prescription_id, medicament_id,medication_name,dosage,duration,frequency) VALUES ($1,$2,$3,$4,$5,$k6)`, prescriptionID, item.ID, med.DenominationCommuneInternationale, med.Dosage, item.Duration, item.Frequency)

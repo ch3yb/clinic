@@ -58,7 +58,6 @@ type PrescriptionItem {
 type Visit {
     visitID: Int!
     patientID: Int!
-    prescriptionID: Int
     details: String
     diagnosis: String
     notes: String

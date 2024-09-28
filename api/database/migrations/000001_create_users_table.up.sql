@@ -136,21 +136,21 @@ CREATE TABLE patients_diseases (
     FOREIGN KEY (disease_id) REFERENCES diseases(disease_id)
 );
 
--- -- Users Table Data Insertion
--- INSERT INTO users (username, password, first_name, last_name, email, phone_number, role, address, date_of_birth, gender, date_joined, last_login, status, profile_picture) VALUES
--- ('john_doe', 'password123', 'John', 'Doe', 'john.doe@example.com', '1234567890', 'admin', '123 Elm Street', strftime('%s', '1980-01-01'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('jane_smith', 'password123', 'Jane', 'Smith', 'jane.smith@example.com', '2345678901', 'doctor', '456 Oak Avenue', strftime('%s', '1985-02-02'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('alice_jones', 'password123', 'Alice', 'Jones', 'alice.jones@example.com', '3456789012', 'nurse', '789 Pine Road', strftime('%s', '1990-03-03'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('bob_brown', 'password123', 'Bob', 'Brown', 'bob.brown@example.com', '4567890123', 'patient', '321 Birch Boulevard', strftime('%s', '1995-04-04'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('charlie_davis', 'password123', 'Charlie', 'Davis', 'charlie.davis@example.com', '5678901234', 'patient', '654 Maple Lane', strftime('%s', '2000-05-05'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('david_lee', 'password123', 'David', 'Lee', 'david.lee@example.com', '6789012345', 'doctor', '987 Cedar Street', strftime('%s', '1975-06-06'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('emily_clark', 'password123', 'Emily', 'Clark', 'emily.clark@example.com', '7890123456', 'nurse', '123 Fir Avenue', strftime('%s', '1988-07-07'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('frank_miller', 'password123', 'Frank', 'Miller', 'frank.miller@example.com', '8901234567', 'admin', '456 Spruce Road', strftime('%s', '1979-08-08'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('grace_wilson', 'password123', 'Grace', 'Wilson', 'grace.wilson@example.com', '9012345678', 'patient', '789 Ash Boulevard', strftime('%s', '1992-09-09'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
--- ('hannah_taylor', 'password123', 'Hannah', 'Taylor', 'hannah.taylor@example.com', '0123456789', 'doctor', '321 Redwood Lane', strftime('%s', '1983-10-10'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', '');
---
--- -- Patients Table Data Insertion
--- INSERT INTO patients (first_name, last_name, email, phone_number, address, date_of_birth, gender, status, profile_picture, notes, blood_type, emergency_contact_name, emergency_contact_phone, insurance_provider, insurance_policy_number) VALUES
--- ('John', 'Doe', 'john.doe@example.com', '1234567890', '123 Elm Street', strftime('%s', '1980-01-01'), 'm', 'active', '', '', 'A+', 'Jane Doe', '1234567890', 'Blue Cross', '12345'),
--- ('Jane', 'Smith', 'jane.smith@example.com', '2345678901', '456 Oak Avenue', strftime('%s', '1985-02-02'), 'f', 'active', '', '', 'B+', 'John Smith', '2345678901', 'UnitedHealth', '67890'),
--- ('Alice', 'Jones', 'alice.jones@example.com', '3456789012', '789 Pine Road', strftime('%s', '1990-03-03'), 'f', 'active', '', '', 'AB+', 'Bob Jones', '3456789012', 'Aetna', '11223');
+-- Users Table Data Insertion
+INSERT INTO users (username, password, first_name, last_name, email, phone_number, role, address, date_of_birth, gender, date_joined, last_login, status, profile_picture) VALUES
+('john_doe', 'password123', 'John', 'Doe', 'john.doe@example.com', '1234567890', 'admin', '123 Elm Street', strftime('%s', '1980-01-01'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('jane_smith', 'password123', 'Jane', 'Smith', 'jane.smith@example.com', '2345678901', 'doctor', '456 Oak Avenue', strftime('%s', '1985-02-02'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('alice_jones', 'password123', 'Alice', 'Jones', 'alice.jones@example.com', '3456789012', 'nurse', '789 Pine Road', strftime('%s', '1990-03-03'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('bob_brown', 'password123', 'Bob', 'Brown', 'bob.brown@example.com', '4567890123', 'patient', '321 Birch Boulevard', strftime('%s', '1995-04-04'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('charlie_davis', 'password123', 'Charlie', 'Davis', 'charlie.davis@example.com', '5678901234', 'patient', '654 Maple Lane', strftime('%s', '2000-05-05'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('david_lee', 'password123', 'David', 'Lee', 'david.lee@example.com', '6789012345', 'doctor', '987 Cedar Street', strftime('%s', '1975-06-06'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('emily_clark', 'password123', 'Emily', 'Clark', 'emily.clark@example.com', '7890123456', 'nurse', '123 Fir Avenue', strftime('%s', '1988-07-07'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('frank_miller', 'password123', 'Frank', 'Miller', 'frank.miller@example.com', '8901234567', 'admin', '456 Spruce Road', strftime('%s', '1979-08-08'), 'male', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('grace_wilson', 'password123', 'Grace', 'Wilson', 'grace.wilson@example.com', '9012345678', 'patient', '789 Ash Boulevard', strftime('%s', '1992-09-09'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', ''),
+('hannah_taylor', 'password123', 'Hannah', 'Taylor', 'hannah.taylor@example.com', '0123456789', 'doctor', '321 Redwood Lane', strftime('%s', '1983-10-10'), 'female', strftime('%s', 'now'), strftime('%s', 'now'), 'active', '');
+
+-- Patients Table Data Insertion
+INSERT INTO patients (first_name, last_name, email, phone_number, address, date_of_birth, gender, status, profile_picture, notes, blood_type, emergency_contact_name, emergency_contact_phone, insurance_provider, insurance_policy_number) VALUES
+('John', 'Doe', 'john.doe@example.com', '1234567890', '123 Elm Street', strftime('%s', '1980-01-01'), 'm', 'active', '', '', 'A+', 'Jane Doe', '1234567890', 'Blue Cross', '12345'),
+('Jane', 'Smith', 'jane.smith@example.com', '2345678901', '456 Oak Avenue', strftime('%s', '1985-02-02'), 'f', 'active', '', '', 'B+', 'John Smith', '2345678901', 'UnitedHealth', '67890'),
+('Alice', 'Jones', 'alice.jones@example.com', '3456789012', '789 Pine Road', strftime('%s', '1990-03-03'), 'f', 'active', '', '', 'AB+', 'Bob Jones', '3456789012', 'Aetna', '11223');

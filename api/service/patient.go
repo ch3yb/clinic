@@ -12,17 +12,16 @@ import (
 
 func (s *Service) GetPatient(patientID uint) (*models.Patient, error) {
 	var patient = new(models.Patient)
-	var createdAt, dob time.Time
 	var notes, ec, ecp, ip, ipn, email, pp, address sql.NullString
 
 	err := s.db.QueryRow(`SELECT patient_id, notes, blood_type, emergency_contact_name, emergency_contact_phone, insurance_provider, insurance_policy_number, created_at, first_name, last_name, email, phone_number, address, date_of_birth, gender, status, profile_picture FROM patients WHERE patient_id = $1`, patientID).Scan(
 		&patient.PatientID,
 		&notes, &patient.BloodType,
 		&ec, &ecp, &ip, &ipn,
-		&createdAt,
+		&patient.CreatedAt,
 		&patient.FirstName, &patient.LastName,
 		&email, &patient.PhoneNumber,
-		&address, &dob,
+		&address, &patient.DateOfBirth,
 		&patient.Gender, &patient.Status,
 		&pp,
 	)
@@ -60,10 +59,6 @@ func (s *Service) GetPatient(patientID uint) (*models.Patient, error) {
 		patient.Address = utils.GetStringPointer(address.String)
 	}
 
-	// Handle times
-	patient.CreatedAt = int(createdAt.Unix())
-	patient.DateOfBirth = int(dob.Unix())
-
 	return patient, nil
 }
 func (s *Service) GetPatients(archived *bool) ([]*models.Patient, error) {
@@ -84,16 +79,16 @@ func (s *Service) GetPatients(archived *bool) ([]*models.Patient, error) {
 
 	for rows.Next() {
 		var patient = new(models.Patient)
-		var createdAt, dob time.Time
+		var dob time.Time
 		var notes, ec, ecp, ip, ipn, email, pp, address sql.NullString
 		err = rows.Scan(
 			&patient.PatientID,
 			&notes, &patient.BloodType,
 			&ec, &ecp, &ip, &ipn,
-			&createdAt,
+			&patient.CreatedAt,
 			&patient.FirstName, &patient.LastName,
 			&email, &patient.PhoneNumber,
-			&address, &dob,
+			&address, &patient.DateOfBirth,
 			&patient.Gender, &patient.Status,
 			&pp,
 		)
@@ -132,7 +127,6 @@ func (s *Service) GetPatients(archived *bool) ([]*models.Patient, error) {
 		}
 
 		// Handle times
-		patient.CreatedAt = int(createdAt.Unix())
 		patient.DateOfBirth = int(dob.Unix())
 
 		s.Logger.Info("", zap.Any("", patient))
